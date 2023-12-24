@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>#calendar{max-width: 1100px;margin: 0 auto;}</style>
+<h1 class="h3 mb-4 text-gray-800 text-capitalize">{{ title }}</h1>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        {{ semester.name }}
+    </div>
+    <div class="card-body">
+        <div id="calendar"></div>
+    </div>
+</div>
+<script id="data" type="application/json">{{ data|safe }}</script>
+<script>
+    var events = JSON.parse(document.getElementById('data').innerHTML.replace(/'/g, '"'));
+
+    console.log(events);
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendar = new FullCalendar.Calendar(
+        document.getElementById('calendar'),
+        {
+            slotMinTime: '07:00',
+            slotMaxTime: '21:00',
+            initialView: 'timeGridWeek',
+            events: events,
+        }
+      ).render();
+    });
+  
+  </script>
+
+{% endblock content %}

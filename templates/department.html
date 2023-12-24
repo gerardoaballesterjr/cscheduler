@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1 class="h3 mb-4 text-gray-800 text-capitalize">department</h1>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">
+            <a href="#" class="btn-link text-capitalize" data-toggle="modal" data-target="#center-modal" hx-get="{% url 'department:create' %}" hx-target="#center-modal-content">
+                <i class="fas fa-fw fa-plus"></i> create department
+            </a>
+        </h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>Code</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for object in object_list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ object.name }}</td>
+                        <td>{{ object.code }}</td>
+                        <td>
+                            <a href="#" data-toggle="modal" data-target="#center-modal" hx-get="{{ object.get_update_url }}" hx-target="#center-modal-content">
+                                <i class="fas fa-fw fa-wrench"></i> Modify
+                            </a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center">No departments available.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}
