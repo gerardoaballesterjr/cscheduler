@@ -1,7 +1,7 @@
 # Cscheduler
 Class scheduler using genetic algorithm
 ***
-**commands**
+**Commands**
 ```
 python3 manage.py reset
 ```
