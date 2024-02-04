@@ -16,8 +16,8 @@ class Command(BaseCommand):
                     os.remove(os.path.join(migrations_dir, file))
         except:
             pass
-
-        # remove database
+        
+        # remove migrations
         try:
             os.remove('main.db')
         except:
@@ -28,8 +28,8 @@ class Command(BaseCommand):
 
         # create superuser
         superuser =  User()
-        superuser.first_name = 'Admin'
-        superuser.last_name = 'Admin'
+        superuser.first_name = 'John'
+        superuser.last_name = 'Doe'
         superuser.username = 'admin'
         superuser.set_password('admin')
         superuser.is_superuser = True

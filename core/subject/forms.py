@@ -13,7 +13,7 @@ class SubjectForm(forms.ModelForm):
             })
         self.fields['room_type'].queryset = models.RoomType.objects.filter(models.models.Q(department=department) | models.models.Q(department=None))
         self.fields['room_type'].label_from_instance = lambda obj: obj.name
-        self.fields['curriculum'].queryset = models.Curriculum.objects.filter(department=department)
+        self.fields['curriculum'].queryset = models.Curriculum.objects.filter(course__department=department)
         self.fields['curriculum'].label_from_instance = lambda obj: obj.name
 
     class Meta:

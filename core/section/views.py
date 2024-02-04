@@ -42,6 +42,7 @@ class CreateView(mixins.LoginRequiredMixin, generic.CreateView):
     def form_valid(self, form):
         object = form.save(commit=False)
         object.save()
+        form.save_m2m()
         messages.success(self.request, f'Section created successfully.')
         return http.HttpResponse(status=204, headers={'HX-Trigger': 'form'})
 

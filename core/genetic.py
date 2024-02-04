@@ -54,7 +54,10 @@ class Population:
         professor = bool(gene0.assign.professor == gene1.assign.professor)
         section = bool(gene0.section == gene1.section)
         
-        return bool(time and days and room) or bool(time and days and professor) or bool(time and days and section)
+        if gene0.room.type.name == gene1.room.type.name == 'Online':
+            return bool(time and days and professor) or bool(time and days and section)
+        else:
+            return bool(time and days and professor and room) or bool(time and days and section and room) or bool(time and days and professor) or bool(time and days and section)
 
     
     def professor_room_section_conflict(self):

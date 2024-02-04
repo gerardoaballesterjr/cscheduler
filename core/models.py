@@ -131,7 +131,7 @@ class Professor(models.Model):
 
 class Curriculum(models.Model):
     name = models.CharField(max_length=255, unique=True)
-    department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='curriculum_department')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='curriculum_course')
     slug = models.SlugField(unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -154,7 +154,7 @@ class Subject(models.Model):
     code = models.CharField(max_length=255)
     type = models.CharField(max_length=255, choices=(['Minor','Minor'],['Major','Major']))
     units = models.IntegerField()
-    hours = models.FloatField(choices=[(1, 1), (3, 3), (4, 4), (5, 5), (6, 6), (8, 8)])
+    hours = models.FloatField(choices=[(1.0, 1.0), (3.0, 3.0), (4.0, 4.0), (5.0, 5.0), (6.0, 6.0), (8.0, 8.0)])
     level = models.IntegerField()
     curriculum = models.ForeignKey(Curriculum, on_delete=models.CASCADE, related_name='subject_curriculum')
     department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='subject_department')

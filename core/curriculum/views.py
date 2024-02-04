@@ -12,7 +12,7 @@ class IndexView(mixins.LoginRequiredMixin, generic.ListView):
     extra_context = {'title': 'Curriculum'}
 
     def get_queryset(self, *args, **kwargs):
-        return super().get_queryset(*args, **kwargs).filter(department=self.request.user.department)
+        return super().get_queryset(*args, **kwargs).filter(course__department=self.request.user.department)
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.department:
@@ -33,6 +33,11 @@ class CreateView(mixins.LoginRequiredMixin, generic.CreateView):
         self.extra_context['action'] = self.request.build_absolute_uri()
         return super().dispatch(request, *args, **kwargs)
     
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['department'] = self.request.user.department
+        return kwargs
+
     def form_valid(self, form):
         object = form.save(commit=False)
         object.department = self.request.user.department
@@ -50,11 +55,16 @@ class UpdateView(mixins.LoginRequiredMixin, generic.UpdateView):
     query_pk_and_slug = True
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.department != self.get_object().department:
+        if request.user.department != self.get_object().course.department:
             return self.handle_no_permission()
         self.extra_context['action'] = self.request.build_absolute_uri()
         return super().dispatch(request, *args, **kwargs)
     
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['department'] = self.request.user.department
+        return kwargs
+
     def form_valid(self, form):
         object = form.save()
         messages.success(self.request, f'Curriculum updated successfully.')

@@ -3,7 +3,7 @@ from django import urls
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-pfz0*d!6%r)dapdj5(z+!bb4ddd%f8=2rex(=&lrw1)h-ql-od'
+SECRET_KEY = 'secret-baka-asset'
 
 DEBUG = True
 
